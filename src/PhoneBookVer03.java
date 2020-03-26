@@ -1,51 +1,33 @@
 import java.util.Scanner;
 
+import ver02.PhoneInfo;
 import ver03.PhoneBookManager;
 
-
-
 public class PhoneBookVer03 {
-
-	//프로그램에서의 입력메뉴 출력
-	public static void printMenu() {
-		System.out.println("==원하는 메뉴를 선택하세요==");
-		System.out.println("1.데이터 입력");
-		System.out.println("2.데이터 검색");
-		System.out.println("3.데이터 삭제");
-		System.out.println("4.주소록 출력");
-		System.out.println("5.프로그램 종료");
-		System.out.print("메뉴선택>>>");
-	}
-	
 	
 	public static void main(String[] args) {
-	
-		PhoneBookManager manager = new PhoneBookManager(100); //유저 100개까지 저장가능
+		PhoneBookManager pBM = new PhoneBookManager(100);
+		Scanner scan = new Scanner(System.in);//메뉴받을 스캐너
+		int userNum;
 		
-		while (true) {
-			
-			printMenu();
-			Scanner scan = new Scanner(System.in);
-			int choice = scan.nextInt();
-			
-			switch (choice) {
+		while(true) {
+			pBM.printMenu();
+			System.out.print("번호입력:");
+			userNum = scan.nextInt();
+
+			switch(userNum) {
 			case 1:
-				manager.addUser();
-				break;
+				pBM.dataInput(); break;
 			case 2:
-				manager.searchUser();
-				break;
+				pBM.dataSearch(); break;
 			case 3:
-				manager.deleteUser();
-				break;
+				pBM.dataDelete(); break;
 			case 4:
-				manager.showAllData();
-				break;
+				pBM.dataAllShow(); break;
 			case 5:
 				System.out.println("프로그램을 종료합니다.");
 				return;
 			}
-			
-		}////end of while
-	}////end of main
+		}
+	}
 }

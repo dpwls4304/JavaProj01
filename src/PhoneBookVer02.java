@@ -6,7 +6,7 @@ public class PhoneBookVer02 {
 	
 	public static void menuShow() {
 		
-		System.out.println("[번호를 입력하세요]");
+		System.out.println("[메뉴를 선택하세요]");
 		System.out.println("[1]데이터 입력");
 		System.out.println("[2]프로그램 종료");
 	}
@@ -17,12 +17,11 @@ public class PhoneBookVer02 {
 		Scanner scan1 = new Scanner(System.in);//메뉴받을 스캐너
 		Scanner scan2 = new Scanner(System.in);//정보받을 스캐너
 		int userNum;//1 or 2선택
-		String name, phone;
-		String birth = "";//입력없이 엔터치면 내용없음으로 처리
+		String name, phone, birth;
 		
 		while(true) {
 			menuShow();
-			System.out.print("입력:");
+			System.out.print("번호입력:");
 			userNum = scan1.nextInt();
 
 			switch (userNum) {
@@ -33,6 +32,10 @@ public class PhoneBookVer02 {
 				phone = scan2.nextLine();
 				System.out.print("생년월일:");
 				birth = scan2.nextLine();
+				
+				//birth에 아무것도 입력되지 않을시 null로 처리
+				if(birth.equals(""))
+					birth = null;
 				
 				PhoneInfo ph = new PhoneInfo(name, phone, birth);
 				ph.showPhoneInfo();		

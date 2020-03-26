@@ -2,111 +2,59 @@ package ver03;
 
 import java.util.Scanner;
 
-
-abstract class UserList {
-	
-	String name;
-	String phone;
-	String birth;
-	
-	public UserList(String name, String phone, String birth) {
-		this.name = name;
-		this.phone = phone;
-		this.birth = birth;
-	}
-	
-	public void showAllData() {
-		System.out.println("이름: "+ name);
-		System.out.println("전화번호: "+ phone);
-		System.out.println("주소: "+ birth);
-	}
-	
-}
-
-class User extends UserList {
-	public User(String name, String phone, String birth) {
-		super(name, phone, birth);
-	}
-	
-	@Override
-	public void showAllData() {
-		System.out.println("==전체정보==");
-		super.showAllData();
-	}
-}
-
-
 public class PhoneBookManager {
-
-	private UserList[] userlist;
-	private int numOfUserlist;
 	
+	//멤버변수
+	private ver03.PhoneInfo[] dataSave;
+	private int numOfSaving;
+	
+	//생성자 : 객체배열의 크기를 알 수 있는 매개변수 받기
 	public PhoneBookManager(int num) {
-		userlist = new UserList[num];
-		numOfUserlist = 0;
+		dataSave = new PhoneInfo[num];
+		numOfSaving = 0; //Q:이거 초기화 위에 멤버변수에서 해도 상관없나?
 	}
 	
-	public void addUser() {
+	/*멤버메소드*/
+	//메뉴출력
+	public void printMenu() {
+		System.out.println("[메뉴를 선택하세요]");
+		System.out.println("[1]데이터 입력");
+		System.out.println("[2]데이터 검색");
+		System.out.println("[3]데이터 삭제");
+		System.out.println("[4]주소록 출력");
+		System.out.println("[5]프로그램 종료");
+	}
+	
+	//입력
+	public void dataInput() {
 		Scanner scan = new Scanner(System.in);
-		String iName, iPhone, iBirth;
 		
-		System.out.println("이름:");
-		iName = scan.nextLine();
-		System.out.println("전화번호:");
-		iPhone = scan.nextLine();
-		System.out.println("생년월일:");
-		iBirth = scan.nextLine();
-		System.out.println("데이터 입력이 완료되었습니다.");
-		
-		User user = new User(iName, iPhone, iBirth);
-		userlist[numOfUserlist++] = user;
+		System.out.println("데이터 입력을 시작합니다.");
+		System.out.print("이름:");
+		String name = scan.nextLine();
+		System.out.print("전화번호:");
+		String phone = scan.nextLine();
+		System.out.print("생년월일:");
+		String birth = scan.nextLine();
+		if(birth.equals(""))
+			birth = null;
+		PhoneInfo ph = new PhoneInfo(name, phone, birth);
+		dataSave[numOfSaving++] = ph;
 	}
 	
-	public void searchUser() {
-		Scanner scan = new Scanner(System.in);
-		System.out.println("검색할 이름을 입력하세요:");
-		String searchName = scan.nextLine();
+	//검색
+	public void dataSearch() {
 		
-		for (int i=0; i<numOfUserlist; i++) {
-			System.out.println("검색중인이름: "+ userlist[i].name);
-			
-			if(searchName.compareTo(userlist[i].name)==0) {
-				userlist[i].showAllData();
-				System.out.println("요청한 정보를 찾았습니다.");
-			}
-		}
 	}
 	
-	public void deleteUser() {
-		Scanner scan = new Scanner(System.in);
-		System.out.println("삭제할 이름을 입력하세요:");
-		String deleteName = scan.nextLine();
+	//삭제
+	public void dataDelete() {
 		
-		int deleteIndex = -1;
-		
-		for (int i=0; i<numOfUserlist; i++) {
-			if (deleteName.compareTo(userlist[i].name)==0) {
-				userlist[i] = null;
-				deleteIndex = i;
-				numOfUserlist--;
-			}
-		}
-		if (deleteIndex==-1) {
-			System.out.println("==삭제된 데이터가 없습니다==");
-		}
-		else {
-			for (int i=deleteIndex; i<numOfUserlist; i++) {
-				userlist[i] = userlist[i+1];
-			}
-			System.out.println("==데이터("+ deleteIndex +"번)가 삭제되었습니다.==");
-		}
 	}
 	
-	public void showAllData() {
-		for (int i=0; i<numOfUserlist; i++) {
-			userlist[i].showAllData();
-		}
-		System.out.println("==전체정보가 출력되었습니다==");
+	//주소록전체출력
+	public void dataAllShow() {
+		for(int i=0; i<numOfSaving; i++)
+			dataSave[i].showPhoneInfo();
 	}
-
 }
