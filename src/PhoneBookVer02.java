@@ -36,7 +36,8 @@ public class PhoneBookVer02 {
 				
 				PhoneInfo ph = new PhoneInfo(name, phone, birth);
 				ph.showPhoneInfo();		
-	
+				break;
+				
 			case 2: 
 				System.out.println("프로그램을 종료합니다.");
 				return;
