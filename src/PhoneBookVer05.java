@@ -1,9 +1,8 @@
 import java.util.Scanner;
 
-import ver02.PhoneInfo;
-import ver03.PhoneBookManager;
+import ver04.PhoneBookManager;
 
-public class PhoneBookVer03 {
+public class PhoneBookVer05 {
 	
 	public static void main(String[] args) {
 		PhoneBookManager pBM = new PhoneBookManager(100);
@@ -25,7 +24,7 @@ public class PhoneBookVer03 {
 				pBM.dataAllShow(); break;
 			case 5:
 				System.out.println("프로그램을 종료합니다.");
-				return;
+				System.exit(0);
 			default :
 				System.out.println("\n번호를 다시 확인하세요\n");
 			}

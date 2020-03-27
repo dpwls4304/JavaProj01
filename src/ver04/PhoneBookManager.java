@@ -1,4 +1,4 @@
-package ver03;
+package ver04;
 
 import java.util.Scanner;
 
@@ -32,20 +32,48 @@ public class PhoneBookManager {
 	
 	//입력
 	public void dataInput() {
-		Scanner scan = new Scanner(System.in);
+		Scanner scan1 = new Scanner(System.in);
+		Scanner scan2 = new Scanner(System.in);
 		
 		System.out.println("==데이터 입력을 시작합니다.==");
-		System.out.print("이름:");
-		String name = scan.nextLine();
-		System.out.print("전화번호:");
-		String phone = scan.nextLine();
-		System.out.print("생년월일:");
-		String birth = scan.nextLine();
-		if(birth.equals(""))
-			birth = null;
+		System.out.println("[1]일반, [2]동창, [3]회사");
+		System.out.print("선택>>");
+		int chGroup = scan1.nextInt();
 		
-		PhoneInfo ph = new PhoneInfo(name, phone, birth);
-		dataSave[numOfSaving++] = ph;
+		switch(chGroup) {
+		case 1:
+			System.out.print("이름:");
+			String name1 = scan2.nextLine();
+			System.out.print("전화번호:");
+			String phone1 = scan2.nextLine();
+			PhoneInfo ph = new PhoneInfo(name1, phone1);
+			dataSave[numOfSaving++] = ph;
+			break;
+		case 2:
+			System.out.print("이름:");
+			String name2 = scan2.nextLine();
+			System.out.print("전화번호:");
+			String phone2 = scan2.nextLine();
+			System.out.print("전공:");
+			String major = scan2.nextLine();
+			System.out.print("학년:");
+			int grade = scan2.nextInt();
+			PhoneSchoolInfo ph2 = 
+				new PhoneSchoolInfo(name2, phone2, major, grade);
+			dataSave[numOfSaving++] = ph2;
+			break;
+		case 3:
+			System.out.print("이름:");
+			String name3 = scan2.nextLine();
+			System.out.print("전화번호:");
+			String phone3 = scan2.nextLine();
+			System.out.print("회사:");
+			String company = scan2.nextLine();
+			PhoneCompanyInfo ph3 = 
+				new PhoneCompanyInfo(name3, phone3, company);
+			dataSave[numOfSaving++] = ph3;
+			break;
+		}
 	}
 	
 	//검색
@@ -69,10 +97,10 @@ public class PhoneBookManager {
 	//삭제
 	public void dataDelete() {
 		Scanner scan = new Scanner(System.in);
+		System.out.println("==데이터 삭제를 시작합니다.==");
 		System.out.print("삭제할 이름:");
 		String user = scan.nextLine();
 		
-		System.out.println("==데이터 삭제==");
 		
 		int deleteIndex = -1;
 		
