@@ -1,8 +1,9 @@
 import java.util.Scanner;
 
-import ver04.PhoneBookManager;
+import ver05.PhoneBookManager;
+import ver05.MenuItem;
 
-public class PhoneBookVer05 {
+public class PhoneBookVer05 implements MenuItem{
 	
 	public static void main(String[] args) {
 		PhoneBookManager pBM = new PhoneBookManager(100);
@@ -14,15 +15,15 @@ public class PhoneBookVer05 {
 			int userNum = scan.nextInt();
 
 			switch(userNum) {
-			case 1:
+			case INPUT:
 				pBM.dataInput(); break;
-			case 2:
+			case SEARCH:
 				pBM.dataSearch(); break;
-			case 3:
+			case DELETE:
 				pBM.dataDelete(); break;
-			case 4:
+			case SHOWALL:
 				pBM.dataAllShow(); break;
-			case 5:
+			case EXIT:
 				System.out.println("프로그램을 종료합니다.");
 				System.exit(0);
 			default :

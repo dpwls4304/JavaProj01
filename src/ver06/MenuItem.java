@@ -1,4 +1,4 @@
-package ver05;
+package ver06;
 
 public interface MenuItem {
 	int INPUT = 1;

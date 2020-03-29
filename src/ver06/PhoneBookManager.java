@@ -1,4 +1,4 @@
-package ver05;
+package ver06;
 
 import java.util.Scanner;
 
@@ -20,12 +20,13 @@ public class PhoneBookManager implements SubMenuItem {
 		if(Menucount>=2)
 			System.out.println();
 	
-		System.out.println("[메뉴를 선택하세요]");
+		System.out.println("[메뉴선택]");
 		System.out.println("[1]데이터 입력");
 		System.out.println("[2]데이터 검색");
 		System.out.println("[3]데이터 삭제");
 		System.out.println("[4]주소록 출력");
 		System.out.println("[5]프로그램 종료");
+		System.out.print("번호입력:");
 		
 		Menucount++;
 	}
@@ -56,7 +57,7 @@ public class PhoneBookManager implements SubMenuItem {
 			String phone2 = scan2.nextLine();
 			System.out.print("전공:");
 			String major = scan2.nextLine();
-			System.out.print("학년:");
+			System.out.print("학년(숫자만가능):");
 			int grade = scan2.nextInt();
 			PhoneSchoolInfo ph2 = 
 				new PhoneSchoolInfo(name2, phone2, major, grade);
@@ -80,17 +81,20 @@ public class PhoneBookManager implements SubMenuItem {
 	public void dataSearch() {
 		Scanner scan = new Scanner(System.in);
 		
+		try {
 		System.out.println("==데이터 검색을 시작합니다.==");
 		System.out.print("검색할 이름:");
 		String user = scan.nextLine();
 		
-		//이름을 기준으로 배열에서 하나씩 비교
-		for(int i=0; i<numOfSaving; i++) {
-			if(user.compareTo(dataSave[i].name)==0) {
-				
-				dataSave[i].showPhoneInfo();//출력형식 다름,하는중
-				System.out.println("==데이터 검색이 완료되었습니다.==");
+			for(int i=0; i<numOfSaving; i++) {
+				if(user.compareTo(dataSave[i].name)==0) {
+					dataSave[i].showPhoneInfo();//출력형식 다름,하는중
+					System.out.println("==데이터 검색이 완료되었습니다.==");
+				}
 			}
+		}
+		catch(NullPointerException e) {
+			System.out.println("없음");
 		}
 	}
 	
