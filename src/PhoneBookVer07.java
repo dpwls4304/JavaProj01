@@ -1,7 +1,6 @@
 import java.util.InputMismatchException;
 import java.util.Scanner;
 import ver07.PhoneBookManager;
-import ver07.PhoneBookManager;
 import ver07.MenuItem;
 
 

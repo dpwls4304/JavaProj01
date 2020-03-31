@@ -6,17 +6,20 @@ import java.util.Scanner;
 
 public class PhoneBookManager implements SubMenuItem {
 	HashSet<PhoneInfo> phoneInfo;
-	int menuCount;//출력 메뉴용 공백
+	int menuCount, saveCnt, grade;
+	String major, company;
+	boolean tOrF;
 	Scanner scan1;
 	Scanner scan2;
-	boolean tOrF;
-	int saveCnt;
 	
 	//생성자
 	public PhoneBookManager(int num) {
 		phoneInfo = new HashSet<PhoneInfo>();
 		menuCount = 1;
 		saveCnt = 0;
+		grade = 0;
+		major = null;
+		company = null;
 	}
 	
 	//메뉴출력
@@ -43,99 +46,57 @@ public class PhoneBookManager implements SubMenuItem {
 		System.out.println("==데이터 입력을 시작합니다.==");
 		System.out.println("[1]일반, [2]동창, [3]회사");
 		System.out.print("선택>>");
-		int subMenu = scan1.nextInt();
+		int subChoice = scan1.nextInt();
 		
-		switch(subMenu) {
-		case BASIC:
-			System.out.print("이름:");
-			String name1 = scan2.nextLine();
-			System.out.print("전화번호:");
-			String phone1 = scan2.nextLine();
-			
-			if(phoneInfo.add(new PhoneInfo(name1, phone1)) == false) {
-				Iterator<PhoneInfo> itr = phoneInfo.iterator();
-				System.out.println("==아래 정보와 동일한 이름이 존재합니다. 덮어쓰기 하시겠습니까?==");
-				while(itr.hasNext()) {
-					PhoneInfo info = itr.next();
-					if(name1.equals(info.getName())) {
-						info.showPhoneInfo();
-						System.out.print("[1]예, [2]아니오>>");
-						int userCh = scan1.nextInt();
-						scan1.nextLine();//버퍼날림
-						if(userCh == 1) {
-							itr.remove();
-							phoneInfo.add(new PhoneInfo(name1, phone1));
-						}
-						if(userCh == 2) {
-							return;
-						}
-					}
-				}
-			}
-			break;
-			
-		case SCHOOL:
-			System.out.print("이름:");
-			String name2 = scan2.nextLine();
-			System.out.print("전화번호:");
-			String phone2 = scan2.nextLine();
+		//<입력시작>
+		System.out.print("이름:");
+		String name = scan2.nextLine();
+		System.out.print("전화번호:");
+		String phoneNumber = scan2.nextLine();
+		if(subChoice == SCHOOL) {
 			System.out.print("전공:");
 			String major = scan2.nextLine();
-			System.out.print("학년(숫자만가능):");
+			System.out.print("학년:");
 			int grade = scan2.nextInt();
-			
-			if(phoneInfo.add(new PhoneSchoolInfo(name2, phone2, major, grade)) == false) {
-				Iterator<PhoneInfo> itr = phoneInfo.iterator();
-				System.out.println("==아래 정보와 동일한 이름이 존재합니다. 덮어쓰기 하시겠습니까?==");
-				while(itr.hasNext()) {
-					PhoneInfo info = itr.next();
-					if(name2.equals(info.getName())) {
-						info.showPhoneInfo();
-						System.out.print("[1]예, [2]아니오>>");
-						int userCh = scan1.nextInt();
-						scan1.nextLine();//버퍼날림
-						if(userCh == 1) {
-							itr.remove();
-							phoneInfo.add(new PhoneSchoolInfo(name2, phone2, major, grade));
-						}
-						if(userCh == 2) {
-							return;
-						}
-					}
-				}
-			}
-			break;
-			
-		case COMPANY:
-			System.out.print("이름:");
-			String name3 = scan2.nextLine();
-			System.out.print("전화번호:");
-			String phone3 = scan2.nextLine();
-			System.out.print("회사:");
+			phoneInfo.add(new PhoneSchoolInfo(name, phoneNumber, major, grade));
+		}
+		if(subChoice == COMPANY) {
+			System.out.println("회사:");
 			String company = scan2.nextLine();
+			phoneInfo.add(new PhoneCompanyInfo(name, phoneNumber, company));
+		}
+		
+		PhoneInfo info = new PhoneInfo(name, phoneNumber);
+		if(phoneInfo.add(info) == false) {
+			System.out.println("==아래 정보와 동일한 이름이 존재합니다. 덮어쓰기 하시겠습니까?==");
+			Iterator<PhoneInfo> itr = phoneInfo.iterator();
+			PhoneInfo pI = itr.next();
+			if(name.equals(pI.getName())) {
+				System.out.println("========================");
+				pI.showPhoneInfo();
+				System.out.println("========================");
+			}
+			System.out.print("[1]예, [2]아니오>>");
+			int userCh = scan1.nextInt();
 			
-			if(phoneInfo.add(new PhoneCompanyInfo(name3, phone3, company)) == false) {
-				Iterator<PhoneInfo> itr = phoneInfo.iterator();
-				System.out.println("==아래 정보와 동일한 이름이 존재합니다. 덮어쓰기 하시겠습니까?==");
-				while(itr.hasNext()) {
-					PhoneInfo info = itr.next();
-					if(name3.equals(info.getName())) {
-						info.showPhoneInfo();
-						System.out.print("[1]예, [2]아니오>>");
-						int userCh = scan1.nextInt();
-						scan1.nextLine();//버퍼날림
-						if(userCh == 1) {
-							itr.remove();
-							phoneInfo.add(new PhoneCompanyInfo(name3, phone3, company));
-						}
-						if(userCh == 2) {
-							return;
-						}
-					}
+			if(userCh == 1) {
+				if(subChoice == BASIC) {
+					phoneInfo.remove(info);
+					phoneInfo.add(info);
+				}
+				if(subChoice == SCHOOL) {
+					phoneInfo.remove(info);
+					phoneInfo.add(new PhoneSchoolInfo(name, phoneNumber, major, grade));
+				}
+				if(subChoice == COMPANY) {
+					phoneInfo.remove(info);
+					phoneInfo.add(new PhoneCompanyInfo(name, phoneNumber, company));
 				}
 			}
-			break;
-		}//end of switch
+			else {
+				
+			}
+		}
 	}
 	
 	//2.검색
