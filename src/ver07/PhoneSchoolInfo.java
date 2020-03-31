@@ -20,4 +20,5 @@ public class PhoneSchoolInfo extends PhoneInfo{
 		System.out.println("전공:" + major);
 		System.out.println("학년" + grade);
 	}
+	
 }
