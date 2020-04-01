@@ -114,9 +114,9 @@ public class PhoneBookManager implements SubMenuItem {
 				System.out.println("==데이터 검색이 완료되었습니다.==");
 				break;
 			}
-			else if(tOrF == false) {
-				System.out.println("==검색할 데이터가 존재하지 않습니다.==");
-			}
+		}
+		if(tOrF == false) {
+			System.out.println("==검색할 데이터가 존재하지 않습니다.==");
 		}
 	}
 	
@@ -138,9 +138,9 @@ public class PhoneBookManager implements SubMenuItem {
 				System.out.println("==상기의 데이터가 삭제되었습니다.==");
 				break;
 			}
-			else if(tOrF == false) {
-				System.out.println("==삭제할 데이터가 존재하지 않습니다.==");
-			}
+		}
+		if(tOrF == false) {
+			System.out.println("==삭제할 데이터가 존재하지 않습니다.==");
 		}
 	}
 	
@@ -169,6 +169,12 @@ public class PhoneBookManager implements SubMenuItem {
 		}
 	}
 	
+	
+	
+	
+	
+	
+	
 	public void dataSave() {
 		try {
 			ObjectOutputStream out = new ObjectOutputStream(
@@ -189,10 +195,11 @@ public class PhoneBookManager implements SubMenuItem {
 			ObjectInputStream in = new ObjectInputStream(
 					new FileInputStream("src/ver08/PhoneBook.obj"));
 			save = (HashSet<PhoneInfo>)in.readObject();
-			itr = save.iterator();
-			while(itr.hasNext()) {
-				itr.next().showPhoneInfo();
-				}
+			this.save = save;
+//			itr = save.iterator();
+//			while(itr.hasNext()) {
+//				itr.next().showPhoneInfo();
+//				}
 			in.close();
 		}
 		catch(Exception e) {
