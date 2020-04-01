@@ -34,11 +34,11 @@ public class PreparedStatement {
 	}//end of PreparedStatement
 	
 	private void createTB() {
-		try {
-			stmt = con.createStatement();
-			
-			String sql = "INSERT INTO phonebook_tb VALUES (?, ?, ?, ?)";
-					+ "('')"
-		}
+//		try {
+//			stmt = con.createStatement();
+//			
+//			String sql = "INSERT INTO phonebook_tb VALUES (?, ?, ?, ?)";
+//					+ "('')"
+//		}
 	}
 }

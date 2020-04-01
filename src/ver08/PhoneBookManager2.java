@@ -8,7 +8,7 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Scanner;
 
-public class PhoneBookManager implements SubMenuItem {
+public class PhoneBookManager2 implements SubMenuItem {
 	//1개 이상의 지역에서 사용할 변수 및 객체
 	HashSet<PhoneInfo> save;
 	Iterator<PhoneInfo> itr;
@@ -16,10 +16,11 @@ public class PhoneBookManager implements SubMenuItem {
 	boolean tOrF;
 	Scanner scan;
 	
-	public PhoneBookManager() {
+	public PhoneBookManager2() {
 		save = new HashSet<PhoneInfo>();
 		menuCount = 0; //메뉴 공백을 위한 카운트
 		showCount = 0; //전체출력 갯수 형식을 위한 카운트
+		tOrF = false;
 	}
 	
 	//메뉴출력
@@ -99,7 +100,6 @@ public class PhoneBookManager implements SubMenuItem {
 	
 	//2.검색
 	public void dataSearch() {
-		tOrF = false;
 		scan = new Scanner(System.in);
 		System.out.println("==데이터 검색을 시작합니다.==");
 		System.out.print("검색할 이름:");
@@ -114,15 +114,14 @@ public class PhoneBookManager implements SubMenuItem {
 				System.out.println("==데이터 검색이 완료되었습니다.==");
 				break;
 			}
-			else if(tOrF == false) {
-				System.out.println("==검색할 데이터가 존재하지 않습니다.==");
-			}
+		}
+		if(tOrF == false) {
+			System.out.println("==검색할 데이터가 존재하지 않습니다.==");
 		}
 	}
 	
 	//3.삭제
 	public void dataDelete() {
-		tOrF = false;
 		scan = new Scanner(System.in);
 		System.out.println("==데이터 삭제를 시작합니다.==");
 		System.out.print("삭제할 이름:");
@@ -138,16 +137,15 @@ public class PhoneBookManager implements SubMenuItem {
 				System.out.println("==상기의 데이터가 삭제되었습니다.==");
 				break;
 			}
-			else if(tOrF == false) {
-				System.out.println("==삭제할 데이터가 존재하지 않습니다.==");
-			}
+		}
+		if(tOrF == false) {
+			System.out.println("==삭제할 데이터가 존재하지 않습니다.==");
 		}
 	}
 	
 	//4.주소록전체출력
 	public void dataAllShow() {
 		dataLoad();
-		tOrF = false;
 		itr = save.iterator();
 		while(itr.hasNext()) {
 			tOrF = true;

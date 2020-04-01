@@ -1,7 +1,5 @@
 package ver02;
 
-import java.util.Scanner;
-
 public class PhoneInfo {
 
 	//멤버변수

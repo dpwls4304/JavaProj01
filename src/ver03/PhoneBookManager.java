@@ -11,7 +11,7 @@ public class PhoneBookManager {
 	//생성자 : 객체배열의 크기를 알 수 있는 매개변수 받기
 	public PhoneBookManager(int num) {
 		dataSave = new PhoneInfo[num];
-		numOfSaving = 0; //Q:이거 초기화 위에 멤버변수에서 해도 상관없나?
+		numOfSaving = 0;
 	}
 	
 	/*멤버메소드*/

@@ -1,5 +1,7 @@
 import java.util.InputMismatchException;
 import java.util.Scanner;
+
+import ver06.MenuSelectException;
 import ver08.MenuItem;
 import ver08.PhoneBookManager;
 
@@ -15,9 +17,16 @@ public class PhoneBookVer08 implements MenuItem{
 			Scanner scan = new Scanner(System.in);
 			try {
 				Menuchoice = scan.nextInt();
+				if(Menuchoice<1 || Menuchoice>5) {
+					MenuSelectException mSE = new MenuSelectException();
+					throw mSE;
+				}
 			}
 			catch(InputMismatchException e) {
 				System.out.println("==숫자가 아닙니다.==");
+			}
+			catch(MenuSelectException e) {
+				
 			}
 			
 			switch(Menuchoice) {

@@ -6,9 +6,6 @@ import ver09.PhoneBookManager;
 public class PhoneBookVer09 {
 	
 	//생성자
-	public insertSQL(String name, String phoneNumber, String birth) {
-		CREATE TABLE 
-	}
 	
 	public static void main(String[] args) {
 		PhoneBookManager pBM = new PhoneBookManager(100);
