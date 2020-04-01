@@ -1,13 +1,13 @@
 import java.util.InputMismatchException;
 import java.util.Scanner;
-import ver07.PhoneBookManager;
-import ver07.MenuItem;
+import ver08.MenuItem;
+import ver08.PhoneBookManager;
 
 
-public class PhoneBookVer07 implements MenuItem{
+public class PhoneBookVer08 implements MenuItem{
 	
 	public static void main(String[] args) {
-		PhoneBookManager pBM = new PhoneBookManager(100);
+		PhoneBookManager pBM = new PhoneBookManager();
 		
 		while(true) {
 			pBM.printMenu();
@@ -24,13 +24,14 @@ public class PhoneBookVer07 implements MenuItem{
 			case INPUT:
 				pBM.dataInput(); break;
 			case SEARCH:
-				pBM.dataSearch(); break;
+				pBM.dataSearch();break;
 			case DELETE:
 				pBM.dataDelete(); break;
 			case SHOWALL:
 				pBM.dataAllShow(); break;
 			case EXIT:
 				System.out.println("==프로그램을 종료합니다.==");
+				pBM.dataSave();
 				System.exit(0);
 			}
 		}

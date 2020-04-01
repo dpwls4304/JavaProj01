@@ -1,5 +1,9 @@
-package ver07;
+package ver08;
 
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Scanner;
@@ -8,19 +12,20 @@ public class PhoneBookManager implements SubMenuItem {
 	//1개 이상의 지역에서 사용할 변수 및 객체
 	HashSet<PhoneInfo> save;
 	Iterator<PhoneInfo> itr;
-	int menuCount;
+	int menuCount, showCount;
 	boolean tOrF;
 	Scanner scan;
 	
-	public PhoneBookManager(int num) {
+	public PhoneBookManager() {
 		save = new HashSet<PhoneInfo>();
-		menuCount = 1; //메뉴 공백을 위한 카운트
+		menuCount = 0; //메뉴 공백을 위한 카운트
+		showCount = 0; //전체출력 갯수 형식을 위한 카운트
 		tOrF = false;
 	}
 	
 	//메뉴출력
 	public void printMenu() {
-		if(menuCount>=2)
+		if(menuCount>0)
 			System.out.println();
 		System.out.println("[메뉴선택]");
 		System.out.println("[1]데이터 입력");
@@ -29,7 +34,7 @@ public class PhoneBookManager implements SubMenuItem {
 		System.out.println("[4]주소록 출력");
 		System.out.println("[5]프로그램 종료");
 		System.out.print("번호입력:");
-		menuCount++;
+		menuCount=1;
 	}
 	
 	//1.입력
@@ -68,7 +73,7 @@ public class PhoneBookManager implements SubMenuItem {
 		if(save.add(pI) == false) {
 			System.out.println("==아래 정보와 이름이 동일합니다.");
 			System.out.println("덮어쓰기 하시겠습니까?==");
-			//==================중복객체 보여주는 용도==================
+			//==================중복객체(기존) 보여주는 용도==================
 			itr = save.iterator();
 			while(itr.hasNext()) {
 				PhoneInfo show = itr.next();
@@ -104,6 +109,7 @@ public class PhoneBookManager implements SubMenuItem {
 			PhoneInfo info = itr.next();
 			if(info.getName().equals(searching)) {
 				tOrF = true;
+				System.out.println("========================");
 				info.showPhoneInfo();
 				System.out.println("==데이터 검색이 완료되었습니다.==");
 				break;
@@ -118,15 +124,17 @@ public class PhoneBookManager implements SubMenuItem {
 	public void dataDelete() {
 		scan = new Scanner(System.in);
 		System.out.println("==데이터 삭제를 시작합니다.==");
-		System.out.println("삭제할 이름:");
+		System.out.print("삭제할 이름:");
 		String delete = scan.nextLine();
 		itr = save.iterator();
 		while(itr.hasNext()) {
 			PhoneInfo info = itr.next();
 			if(info.getName().equals(delete)) {
 				tOrF = true;
+				System.out.println("========================");
+				info.showPhoneInfo();
 				save.remove(info);
-				System.out.println("==데이터 삭제가 완료되었습니다.==");
+				System.out.println("==상기의 데이터가 삭제되었습니다.==");
 				break;
 			}
 		}
@@ -137,11 +145,58 @@ public class PhoneBookManager implements SubMenuItem {
 	
 	//4.주소록전체출력
 	public void dataAllShow() {
+		dataLoad();//저장데이터 로드
 		itr = save.iterator();
 		while(itr.hasNext()) {
+			tOrF = true;
+			if(showCount==0) {
+				System.out.println("==" + save.size() + "개의 데이터를 출력합니다.==");
+			}
+			else if(showCount>0) {
+				System.out.println("========================");
+			}
 			PhoneInfo info = itr.next();
-			System.out.println("========================");
 			info.showPhoneInfo();
+			showCount=1;
+		}
+		if(tOrF == true) {
+			System.out.println("==데이터 출력이 완료되었습니다.==");
+		}
+		if(tOrF == false) {
+			System.out.println("==출력할 데이터가 존재하지 않습니다.==");
 		}
 	}
+	
+	public void dataSave() {
+		try {
+			ObjectOutputStream out = new ObjectOutputStream(
+					new FileOutputStream("src/ver08/PhoneBook.obj"));
+			out.writeObject(save);
+			out.writeObject(null);
+			System.out.println("==" +save.size() + "개의 데이터가 저장되었습니다.==");
+			out.close();
+		}
+		catch(Exception e) {
+			System.out.println("인출과정에서 오류 발생");
+			e.printStackTrace();
+		}
+	}
+	
+	public void dataLoad() {
+		try {
+			ObjectInputStream in = new ObjectInputStream(
+					new FileInputStream("src/ver08/PhoneBook.obj"));
+			save = (HashSet<PhoneInfo>)in.readObject();
+			itr = save.iterator();
+			while(itr.hasNext()) {
+				save.add(itr.next());
+				}
+			in.close();
+		}
+		catch(Exception e) {
+			System.out.println("불러오는 과정에서 오류 발생");
+			e.printStackTrace();
+		}
+	}
+	
 }//end of class
